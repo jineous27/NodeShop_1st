@@ -11,9 +11,11 @@ app.use((req, res) => {
 
 const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/cart');
+const bbsRoutes = require('./routes/bbs');
 
 app.use('/products', productRoutes);
 app.use('/carts', cartRoutes); 
+app.use('/bbs', bbsRoutes);
 
 const PORT = 1234;
 
