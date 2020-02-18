@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jineous27/NodeShop/issues"
   },
-  "homepage": "https://github.com/jineous27/NodeShop#readme"
+  "homepage": "https://github.com/jineous27/NodeShop#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
