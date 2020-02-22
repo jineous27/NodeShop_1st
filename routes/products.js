@@ -11,8 +11,14 @@ router.get('/', (req, res) => {
 
 // 제품 등록하는 API 
 router.post('/', (req, res) => {
+    const product = {
+        name: req.body.name,
+        price: req.body.price
+    };
+
     res.json({
-        message: "Products are added"
+        message: "Products are added", 
+        createdProduct: product //product를 뿌려주겠다. 위에 Key/value 값이 뿌려짐.//
     });
 });
 
