@@ -4,8 +4,15 @@ const router = express.Router();
 
 // 장바구니에 제품 담는 API
 router.post('/', (req, res) => {
+    const cart = {
+        name: req.body.name,
+        qty: req.body.qty,
+        option: req.body.option,
+    }
+
     res.json({
-        message: "Products were added to the cart"
+        message: "Products were added to the cart",
+        createdCart: cart
     });
 });
 

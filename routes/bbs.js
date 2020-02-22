@@ -10,8 +10,14 @@ router.get('/', (req, res) => {
 
 //게시판에 글 불러오기 API
 router.post('/', (req, res) => {
+    const content = {
+        title: req.body.title,
+        subtitle: req.body.subtitle
+    };
+
     res.json({
-        message: 'The contents were fetched'
+        message: 'The contents were fetched',
+        createdContent: content
     });
 });
 
