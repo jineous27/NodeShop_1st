@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const productModel = require('../models/product');
 
 // 제품 불러오기 API 큰틀을 만든거다. 
 router.get('/', (req, res) => {
@@ -11,15 +12,29 @@ router.get('/', (req, res) => {
 
 // 제품 등록하는 API 
 router.post('/', (req, res) => {
-    const product = {
+    const product = new productModel({
         name: req.body.name,
         price: req.body.price
-    };
-
-    res.json({
-        message: "Products are added", 
-        createdProduct: product //product를 뿌려주겠다. 위에 Key/value 값이 뿌려짐.//
     });
+    //새로운 product 을 저장하고, 어떻게 뿌려줄지 저장을 하고 저장이 안되었을 때 오류 케치해서 뿌려지기
+    product
+        .save()
+        .then(result => {
+            res.json({
+                message: 'Your product is succesfully registered',
+                productInfo: result
+            });
+        })
+        .catch(error => {
+            res.json({
+                err: error
+            });
+        });
+
+    // res.json({
+    //     message: "Products are added", 
+    //     createdProduct: product //product를 뿌려주겠다. 위에 Key/value 값이 뿌려짐.//
+    // });
 });
 
 
