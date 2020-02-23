@@ -4,9 +4,26 @@ const productModel = require('../models/product');
 
 // 제품 불러오기 API 큰틀을 만든거다. 
 router.get('/', (req, res) => {
-    res.json({
-        message: 'Products were fetched'
-    });
+    productModel
+        .find()
+        .exec()
+        .then(docs => {
+            res.json({
+                message: "Successful Total Get Data",
+                products: docs
+            });
+        })
+        .catch(error => {
+            res.json ({
+                err: error
+            });
+        });
+
+
+
+    // res.json({
+    //     message: 'Products were fetched'
+    // });
 });
 
 
