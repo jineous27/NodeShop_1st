@@ -97,16 +97,41 @@ router.patch('/', (req, res) => {
     });
 });
 
-// 삭제하는 API
+
+// 잔체를 삭제하는 API (지울때만 쓴다.) Then 에는 따로 데이터가 없으니,, 잘 삭제되었다고 메세지만 뿌리면 됨.
 
 router.delete('/', (req, res) => {
-    res.json({
-        message: "Products are deleted"
-    });
+    productModel
+        .deleteMany()
+        .then(()=> {
+            res.json({
+                msg: "Deleted All"
+            })
+        })
+        .catch(error => {
+            res.json ({
+                err: error
+            });
+        });
 });
 
+// 선택된 제품을 삭제하는 API (도 따로 만들어준다) ProductID를 상수화
 
-
+router.delete('/:productID', (req, res) => {
+    const productID = req.params.productID;
+    productModel
+        .findByIdAndDelete(productID)
+        .then(() => {
+            res.json({
+                msg: "Delete the product"
+            })
+        })
+        .catch(error => {
+            res.json ({
+                err: error
+            });
+        });
+});
 
 
 
