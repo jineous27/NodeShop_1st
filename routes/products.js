@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productModel = require('../models/product');
 
-// 제품 불러오기 API 큰틀을 만든거다. 
+// 제품 불러오기 API 큰틀을 만든거다. Product model에서 찾고, 실행하고, 뿌려주고 에러를 잡는다. 
 router.get('/', (req, res) => {
     productModel
         .find()
@@ -25,6 +25,41 @@ router.get('/', (req, res) => {
     //     message: 'Products were fetched'
     // });
 });
+
+//선택된 제품을 불러오는 API를 만들어 보자 (큰틀) ProductModel 에 담겨 있으니 ByID기준으로 찾고, 실행, 뿌리고 에러 잡기. 
+router.get('/:productID', (req, res) => {
+    const productID = req.params.productID;
+    productModel
+        .findById(productID)
+        .exec()
+        .then(doc => {
+            console.log(doc); 
+            //ID가 있을 때 이렇게 뿌려주겠다라고 코딩 (정의햇음) + ID 없을때 정의
+            if (doc) {
+                res.json ({
+                    msg: "Successful get product detail",
+                    productInfo: doc
+                })
+            } else {
+                res.json({
+                    msg: "No valid entry found for provided ID"
+                });
+            }
+        })
+        .catch(error => {
+            res.json ({
+                err: error
+            });
+        });
+});
+
+
+
+
+
+
+
+
 
 
 // 제품 등록하는 API 
